@@ -16,7 +16,7 @@
     <div class="calculator-container">
       <h1 class="container">Calculate your statistical significance</h1>
       <div class="calculator-wrapper">
-        <form class="calculator" action="">
+        <form id="calculatorForm" class="calculator" action="">
           <div class="calculator-grid">
             <div class="calculator-grid-item"></div>
             <div class="calculator-grid-item">
@@ -184,7 +184,11 @@
     </div>
 
     <script>
-      
+      const form = document.getElementById("calculatorForm");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+      });
     </script>
   </body>
 </html>
