@@ -674,7 +674,7 @@
         ".calculator-container"
       );
 
-      const significant = (pcrB, pcrA, conf, pVal) => {
+      const significant = (pcrB, pcrA, conf, pVal, hyp, tspVal) => {
         let finalText;
         let significantHigherText = `
         Variant B’s conversion rate (${parseFloat(pcrB).toFixed(
@@ -723,32 +723,74 @@
         )})%, but you cannot say, with ${conf}% confidence, that variant B will perform worse than variant A.
         `;
 
-        if (
-          (conf == 90 && (pVal < 0.1 || pVal > 0.9)) ||
-          (conf == 95 && (pVal < 0.05 || pVal > 0.95)) ||
-          (conf == 99 && (pVal < 0.01 || pVal > 0.99))
-        ) {
-          if (pcrB > pcrA) {
-            finalText = significantHigherText;
-          } else {
-            finalText = significantLowerText;
-          }
-          resultTitle.innerHTML = "Significant result!";
-          resultBody.innerHTML = finalText;
+        if (hyp == "onesided") {
+          if (
+            (conf == 90 && (pVal < 0.1 || pVal > 0.9)) ||
+            (conf == 95 && (pVal < 0.05 || pVal > 0.95)) ||
+            (conf == 99 && (pVal < 0.01 || pVal > 0.99))
+          ) {
+            if (pcrB > pcrA) {
+              finalText = significantHigherText;
+            } else {
+              finalText = significantLowerText;
+            }
+            resultTitle.innerHTML = "Significant result!";
+            resultBody.innerHTML = finalText;
 
-          calculatorContainer.style.setProperty("--bRowBackground", "#afffaf");
-        } else {
-          if (pcrB == pcrA) {
-            finalText = notSignificantEqualText;
-          } else if (pcrB > pcrA) {
-            finalText = notSignificantHigherText;
+            calculatorContainer.style.setProperty(
+              "--bRowBackground",
+              "#afffaf"
+            );
           } else {
-            finalText = notSignificantLowerText;
-          }
-          resultTitle.innerHTML = "Result not significant!";
-          resultBody.innerHTML = finalText;
+            if (pcrB == pcrA) {
+              finalText = notSignificantEqualText;
+            } else if (pcrB > pcrA) {
+              finalText = notSignificantHigherText;
+            } else {
+              finalText = notSignificantLowerText;
+            }
+            resultTitle.innerHTML = "Result not significant!";
+            resultBody.innerHTML = finalText;
 
-          calculatorContainer.style.setProperty("--bRowBackground", "#ffc7af");
+            calculatorContainer.style.setProperty(
+              "--bRowBackground",
+              "#ffc7af"
+            );
+          }
+        } else if (hyp == "twosided") {
+          if (
+            (conf == 90 && pVal <= 0.1) ||
+            (conf == 95 && pVal <= 0.05) ||
+            (conf == 99 && pVal <= 0.01)
+          ) {
+            if (pcrB > pcrA) {
+              finalText = significantHigherText;
+            } else {
+              finalText = significantLowerText;
+            }
+            resultTitle.innerHTML = "Significant result!";
+            resultBody.innerHTML = finalText;
+
+            calculatorContainer.style.setProperty(
+              "--bRowBackground",
+              "#afffaf"
+            );
+          } else {
+            if (pcrB == pcrA) {
+              finalText = notSignificantEqualText;
+            } else if (pcrB > pcrA) {
+              finalText = notSignificantHigherText;
+            } else {
+              finalText = notSignificantLowerText;
+            }
+            resultTitle.innerHTML = "Result not significant!";
+            resultBody.innerHTML = finalText;
+
+            calculatorContainer.style.setProperty(
+              "--bRowBackground",
+              "#ffc7af"
+            );
+          }
         }
       };
 
@@ -796,10 +838,7 @@
         let zVal = zScore(convRateA, convRateB, stdErrorA, stdErrorB);
 
         let pVal = pValue(zVal);
-
-        if (hyp == "twosided") {
-          pVal = twoSidedPValue(cB, vB, cA, vA);
-        }
+        let twoSidedPVal = twoSidedPValue(cB, vB, cA, vA);
 
         let pValText = document.getElementById("pValue");
         let rateAText = document.getElementById("rateA");
@@ -815,7 +854,7 @@
         rateAText.innerHTML = `${parseFloat(printedRateA).toFixed(2)}%`;
         rateBText.innerHTML = `${parseFloat(printedRateB).toFixed(2)}%`;
 
-        significant(printedRateB, printedRateA, conf, pVal);
+        significant(printedRateB, printedRateA, conf, pVal, hyp, twoSidedPVal);
       };
 
       form.addEventListener("submit", function (e) {
