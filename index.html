@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>WordPress Calculator</title>
+  </head>
+  <body>
+    <div class="calculator-container">
+      <h1 class="container">Calculate your statistical significance</h1>
+      <div class="calculator-wrapper">
+        <form class="calculator" action="">
+          <div class="calculator-grid">
+            <div class="calculator-grid-item"></div>
+            <div class="calculator-grid-item">
+              <p class="calculator-label calculator-ylabel">Visitors</p>
+            </div>
+            <div class="calculator-grid-item">
+              <p class="calculator-label calculator-ylabel">Conversions</p>
+            </div>
+            <div class="calculator-grid-item"></div>
+            <div class="calculator-grid-item calculator-pr20">
+              <p class="calculator-label calculator-ylabel">Conversion Rate</p>
+            </div>
+            <div class="calculator-grid-item calculator-white-background">
+              <p class="calculator-label">A</p>
+            </div>
+            <div
+              class="calculator-grid-item calculator-white-background calculator-input-container"
+            >
+              <input
+                type="number"
+                name="visitorsA"
+                id="visitorsA"
+                value="2000"
+              />
+            </div>
+            <div
+              class="calculator-grid-item calculator-white-background calculator-input-container"
+            >
+              <input
+                type="number"
+                name="conversionsA"
+                id="conversionsA"
+                value="10"
+              />
+            </div>
+            <div
+              class="calculator-grid-item calculator-white-background calculator-pr10"
+            >
+              <svg
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 16 16"
+                aria-label="ArrowRight"
+                title="ArrowRight"
+              >
+                <g>
+                  <path
+                    d="m15.9177 7.7134a.75.75 0 0 0 -.1618-.2436l-6.04-6.04a.75.75 0 1 0 -1.0601 1.0602l4.7593 4.76h-12.6397a.75.75 0 1 0 0 1.5h12.64l-4.7596 4.76a.75.75 0 1 0 1.0605 1.06l6.04-6.04a.7527.7527 0 0 0 .1618-.8169z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+            <div
+              class="calculator-grid-item calculator-white-background calculator-pr20"
+            >
+              <p class="calculator-rate-result">11.00%</p>
+            </div>
+            <div class="calculator-grid-item calculator-rowB">
+              <p class="calculator-label">B</p>
+            </div>
+            <div
+              class="calculator-grid-item calculator-rowB calculator-input-container"
+            >
+              <input
+                class="calculator-lighten"
+                type="number"
+                name="visitorsB"
+                id="visitorsB"
+                value="3000"
+              />
+            </div>
+            <div
+              class="calculator-grid-item calculator-rowB calculator-input-container"
+            >
+              <input
+                class="calculator-lighten"
+                type="number"
+                name="conversionsB"
+                id="conversionsB"
+                value="10"
+              />
+            </div>
+            <div class="calculator-grid-item calculator-rowB calculator-pr10">
+              <svg
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 16 16"
+                aria-label="ArrowRight"
+                title="ArrowRight"
+              >
+                <g>
+                  <path
+                    d="m15.9177 7.7134a.75.75 0 0 0 -.1618-.2436l-6.04-6.04a.75.75 0 1 0 -1.0601 1.0602l4.7593 4.76h-12.6397a.75.75 0 1 0 0 1.5h12.64l-4.7596 4.76a.75.75 0 1 0 1.0605 1.06l6.04-6.04a.7527.7527 0 0 0 .1618-.8169z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+            <div class="calculator-grid-item calculator-rowB calculator-pr20">
+              <p class="calculator-rate-result">1.00%</p>
+            </div>
+          </div>
+          <div class="controls-container">
+            <div class="controls">
+              <p>Hypothesis</p>
+              <div class="controls-radius">
+                <label for="oneSided"
+                  >One-sided
+                  <input type="radio" name="hypothesis" id="oneSided" />
+                  <span class="custom-radio"></span>
+                </label>
+                <label for="twoSided"
+                  >Two-sided
+                  <input type="radio" name="hypothesis" id="twoSided" checked />
+                  <span class="custom-radio"></span>
+                </label>
+              </div>
+            </div>
+            <div class="controls">
+              <p>Confidence</p>
+              <div class="controls-radius">
+                <label for="90Percent"
+                  >90%
+                  <input type="radio" name="confidence" id="90Percent" />
+                  <span class="custom-radio"></span>
+                </label>
+                <label for="95Percent"
+                  >95%
+                  <input
+                    type="radio"
+                    name="confidence"
+                    id="95Percent"
+                    checked
+                  />
+                  <span class="custom-radio"></span>
+                </label>
+                <label for="99Percent"
+                  >99%
+                  <input type="radio" name="confidence" id="99Percent" />
+                  <span class="custom-radio"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="calculator-button">Calculate</button>
+        </form>
+        <div class="results-container">
+          <div class="results">
+            <h3 class="results-title">Significant result!</h3>
+            <p>
+              Variant B’s conversion rate (1.14%) was 14% higher than variant
+              A’s conversion rate (1%). You can be 95% confident that variant B
+              will perform better than variant A.
+            </p>
+            <div class="results-values">
+              <div>
+                <p>Power</p>
+                <p id="power">86.69%</p>
+              </div>
+              <div>
+                <p>p value</p>
+                <p id="pValue">0.0157</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      
+    </script>
+  </body>
+</html>
