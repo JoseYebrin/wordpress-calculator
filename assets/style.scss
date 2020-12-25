@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 @import "./colors";
 
 *, *::after, *::before, html, body {
@@ -15,7 +17,7 @@ body, html {
 }
 
 body {
-  min-height: 200vh;
+  min-height: 300vh;
 }
 
 .container {
@@ -25,7 +27,7 @@ body {
 }
 
 .calculator-container {
-  --bRowBackground: #4de07e;
+  --bRowBackground: #afffaf;
 
   background-color: $lightGray;
   padding: 3rem 0;
@@ -211,6 +213,7 @@ body {
 
     &>.results-container {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       width: 100%;
@@ -243,6 +246,25 @@ body {
               font-size: 1.1rem;
             }
           }
+        }
+      }
+
+      &>.results-alert {
+        display: none;
+        max-width: 400px;
+        background-color: #ffc7af;
+        border-left: 5px solid #fd8163;
+        padding: 20px;
+        margin-top: 30px;
+        border-radius: 4px;
+        &>.results-alert-title {
+          font-weight: 700;
+          font-size: 19px;
+          margin-bottom: 1rem;
+        }
+        &>.results-alert-body {
+          font-size: 16px;
+          line-height: 1.2rem;
         }
       }
     }

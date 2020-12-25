@@ -3,12 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="style.css" />
     <title>WordPress Calculator</title>
   </head>
@@ -44,7 +38,7 @@
                 type="number"
                 name="visitorsA"
                 id="visitorsA"
-                value="2000"
+                value="50000"
               />
             </div>
             <div
@@ -54,7 +48,7 @@
                 type="number"
                 name="conversionsA"
                 id="conversionsA"
-                value="10"
+                value="500"
               />
             </div>
             <div
@@ -76,7 +70,7 @@
             <div
               class="calculator-grid-item calculator-white-background calculator-pr20"
             >
-              <p id="rateA" class="calculator-rate-result">0.50%</p>
+              <p id="rateA" class="calculator-rate-result">1.00%</p>
             </div>
             <div class="calculator-grid-item calculator-rowB">
               <p class="calculator-label">B</p>
@@ -89,7 +83,7 @@
                 type="number"
                 name="visitorsB"
                 id="visitorsB"
-                value="1000"
+                value="50000"
               />
             </div>
             <div
@@ -100,7 +94,7 @@
                 type="number"
                 name="conversionsB"
                 id="conversionsB"
-                value="10"
+                value="570"
               />
             </div>
             <div class="calculator-grid-item calculator-rowB calculator-pr10">
@@ -118,7 +112,7 @@
               </svg>
             </div>
             <div class="calculator-grid-item calculator-rowB calculator-pr20">
-              <p id="rateB" class="calculator-rate-result">1.00%</p>
+              <p id="rateB" class="calculator-rate-result">1.14%</p>
             </div>
           </div>
           <div class="controls-container">
@@ -132,6 +126,7 @@
                     name="hypothesis"
                     id="oneSided"
                     value="onesided"
+                    checked
                   />
                   <span class="custom-radio"></span>
                 </label>
@@ -142,7 +137,6 @@
                     name="hypothesis"
                     id="twoSided"
                     value="twosided"
-                    checked
                   />
                   <span class="custom-radio"></span>
                 </label>
@@ -191,20 +185,24 @@
           <div class="results">
             <h3 id="resultTitle" class="results-title">Significant result!</h3>
             <p id="resultText">
-              Variant B’s conversion rate (1.00)% was higher than variant A’s
-              conversion rate (0.50)%. You can be 90% confident that variant B
+              Variant B’s conversion rate (1.14)% was higher than variant A’s
+              conversion rate (1.00)%. You can be 90% confident that variant B
               will perform better than variant A.
             </p>
             <div class="results-values">
-              <!-- <div>
-                <p>Power</p>
-                <p id="power">86.69%</p>
-              </div> -->
               <div>
                 <p>p value</p>
-                <p id="pValue">0.0777</p>
+                <p id="pValue">0.0157</p>
               </div>
             </div>
+          </div>
+          <div id="resultsAlert" class="results-alert">
+            <h3 class="results-alert-title">SRM alert</h3>
+            <p class="results-alert-body">
+              Assuming you intented to have a 50% / 50% split, a Sample Ratio
+              Mismatch (SRM) check indicates there might be a problem with your
+              distribution.
+            </p>
           </div>
         </div>
       </div>
@@ -230,6 +228,7 @@
       };
 
       const form = document.getElementById("calculatorForm");
+      const alert = document.getElementById("resultsAlert");
       const resultTitle = document.getElementById("resultTitle");
       const resultBody = document.getElementById("resultText");
       const calculatorContainer = document.querySelector(
@@ -298,7 +297,7 @@
           resultTitle.innerHTML = "Significant result!";
           resultBody.innerHTML = finalText;
 
-          calculatorContainer.style.setProperty("--bRowBackground", "#4de07e");
+          calculatorContainer.style.setProperty("--bRowBackground", "#afffaf");
         } else {
           if (pcrB == pcrA) {
             finalText = notSignificantEqualText;
@@ -310,7 +309,7 @@
           resultTitle.innerHTML = "Result not significant!";
           resultBody.innerHTML = finalText;
 
-          calculatorContainer.style.setProperty("--bRowBackground", "#ff8a8a");
+          calculatorContainer.style.setProperty("--bRowBackground", "#ffc7af");
         }
       };
 
@@ -330,7 +329,7 @@
         return normalcdf(0, 1, z);
       };
 
-      const proccessing = (vA, cA, vB, cB, /*hyp,*/ conf) => {
+      const proccessing = (vA, cA, vB, cB, hyp, conf) => {
         let convRateA = conversionRate(cA, vA);
         let convRateB = conversionRate(cB, vB);
 
@@ -341,7 +340,6 @@
 
         let pVal = pValue(zVal);
 
-        // let powerText = document.getElementById("power");
         let pValText = document.getElementById("pValue");
         let rateAText = document.getElementById("rateA");
         let rateBText = document.getElementById("rateB");
@@ -371,8 +369,8 @@
         let confidenceInputs = document.getElementsByName("confidence");
         let confidence;
 
-        // let hypothesisInputs = document.getElementsByName("hypothesis");
-        // let hypothesis;
+        let hypothesisInputs = document.getElementsByName("hypothesis");
+        let hypothesis;
 
         for (let i = 0; i < confidenceInputs.length; i++) {
           if (confidenceInputs[i].checked) {
@@ -380,20 +378,29 @@
           }
         }
 
-        // for (let i = 0; i < hypothesisInputs.length; i++) {
-        //   if (hypothesisInputs[i].checked) {
-        //     hypothesis = hypothesisInputs[i].value;
-        //   }
-        // }
+        for (let i = 0; i < hypothesisInputs.length; i++) {
+          if (hypothesisInputs[i].checked) {
+            hypothesis = hypothesisInputs[i].value;
+          }
+        }
 
         proccessing(
           visitorsA,
           conversionsA,
           visitorsB,
           conversionsB,
-          // hypothesis,
+          hypothesis,
           confidence
         );
+
+        if (
+          visitorsB > visitorsA + visitorsA * 0.05 ||
+          visitorsB < visitorsA - visitorsA * 0.05
+        ) {
+          alert.style.display = "block";
+        } else {
+          alert.style.display = "none";
+        }
       });
     </script>
   </body>
