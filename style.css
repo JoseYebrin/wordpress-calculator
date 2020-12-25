@@ -282,7 +282,7 @@ body {
 }
 
 .calculator-container > .calculator-wrapper > .results-container > .results > .results-values > div {
-  width: 50%;
+  width: 100%;
 }
 
 .calculator-container > .calculator-wrapper > .results-container > .results > .results-values > div > p:first-child {

@@ -202,7 +202,7 @@
               </div> -->
               <div>
                 <p>p value</p>
-                <p id="pValue">0.08</p>
+                <p id="pValue">0.0778</p>
               </div>
             </div>
           </div>
@@ -795,7 +795,7 @@
         let printedRateB =
           Math.round((convRateB * 100 + Number.EPSILON) * 100) / 100;
 
-        pValText.innerHTML = parseFloat(printedPVal).toFixed(2);
+        pValText.innerHTML = parseFloat(printedPVal).toFixed(4);
         rateAText.innerHTML = `${parseFloat(printedRateA).toFixed(2)}%`;
         rateBText.innerHTML = `${parseFloat(printedRateB).toFixed(2)}%`;
 

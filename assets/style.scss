@@ -240,7 +240,8 @@ body {
           display: flex;
   
           &>div {
-            width: 50%;
+            // width: 50%;
+            width: 100%;
   
             &>p:first-child {
               font-weight: 700;
