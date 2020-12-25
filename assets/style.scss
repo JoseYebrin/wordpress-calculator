@@ -1,9 +1,5 @@
 @import "./colors";
 
-// :root {
-//   --
-// }
-
 *, *::after, *::before, html, body {
   font-family: 'PT Serif', Georgia, serif;
   margin: 0;
@@ -29,7 +25,7 @@ body {
 }
 
 .calculator-container {
-  --bRowBackground: #ffc860; //#00BF6F
+  --bRowBackground: #4de07e;
 
   background-color: $lightGray;
   padding: 3rem 0;
@@ -141,8 +137,7 @@ body {
         padding: 20px 0;
 
         &>.controls {
-          // width: 45%;
-          width: 100%;
+          width: 45%;
 
           &>p {
             font-weight: 700;
@@ -171,7 +166,6 @@ body {
               &>input {
                 position: absolute;
                 opacity: 0;
-                // cursor: pointer;
                 height: 0;
                 width: 0;
 

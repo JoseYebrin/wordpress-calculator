@@ -24,7 +24,7 @@ body {
 }
 
 .calculator-container {
-  --bRowBackground: #ffc860;
+  --bRowBackground: #4de07e;
   background-color: #f8f8f8;
   padding: 3rem 0;
 }
@@ -156,7 +156,7 @@ body {
 }
 
 .calculator-container > .calculator-wrapper > form > .controls-container > .controls {
-  width: 100%;
+  width: 45%;
 }
 
 .calculator-container > .calculator-wrapper > form > .controls-container > .controls > p {
