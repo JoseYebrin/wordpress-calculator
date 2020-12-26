@@ -27,7 +27,7 @@ body {
 }
 
 .calculator-container {
-  --bRowBackground: #afffaf;
+  --bRowBackground: #00bf6f;
 
   background-color: $lightGray;
   padding: 3rem 0;
@@ -141,10 +141,62 @@ body {
         &>.controls {
           width: 45%;
 
-          &>p {
-            font-weight: 700;
+          &>.controls-label {
+            display: flex;
+            align-content: center;
+            justify-content: center;
             margin-bottom: 10px;
+
+            &>p {
+              font-weight: 700;
+            }
+
+            &>div {
+              position: relative;
+              &>svg {
+                margin-left: 8px;
+                width: 14px;
+                fill: #999;
+                cursor: pointer;
+              }
+              &>.controls-label-info {
+                display: none;
+                position: absolute;
+                top: -102px;
+                right: -93px;
+                width: 200px;
+                background-color: rgba(46,46,46,0.9);
+                border-radius: 4px;
+                color: white;
+                font-size: 14px;
+                padding: 10px 20px;
+                text-align: left;
+                z-index: 100;
+  
+                &::before {
+                  content: '';
+                  position: absolute;
+                  left: 50%;
+                  bottom: -10px;
+                  width: 0;
+                  height: 0;
+                  border-left: 8px solid rgba(46,46,46,0.9);
+                  border-bottom: 10px solid transparent;
+                }
+                &::after {
+                  content: '';
+                  position: absolute;
+                  left: calc(50% - 8px);
+                  bottom: -10px;
+                  width: 0;
+                  height: 0;
+                  border-right: 8px solid rgba(46,46,46,0.9);
+                  border-bottom: 10px solid transparent;
+                }
+              }
+            }
           }
+          
           &>.controls-radius {
             display: flex;
             justify-content: center;

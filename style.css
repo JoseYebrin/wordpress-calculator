@@ -25,7 +25,7 @@ body {
 }
 
 .calculator-container {
-  --bRowBackground: #afffaf;
+  --bRowBackground: #00bf6f;
   background-color: #f8f8f8;
   padding: 3rem 0;
 }
@@ -160,9 +160,68 @@ body {
   width: 45%;
 }
 
-.calculator-container > .calculator-wrapper > form > .controls-container > .controls > p {
-  font-weight: 700;
+.calculator-container > .calculator-wrapper > form > .controls-container > .controls > .controls-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-bottom: 10px;
+}
+
+.calculator-container > .calculator-wrapper > form > .controls-container > .controls > .controls-label > p {
+  font-weight: 700;
+}
+
+.calculator-container > .calculator-wrapper > form > .controls-container > .controls > .controls-label > div {
+  position: relative;
+}
+
+.calculator-container > .calculator-wrapper > form > .controls-container > .controls > .controls-label > div > svg {
+  margin-left: 8px;
+  width: 14px;
+  fill: #999;
+  cursor: pointer;
+}
+
+.calculator-container > .calculator-wrapper > form > .controls-container > .controls > .controls-label > div > .controls-label-info {
+  display: none;
+  position: absolute;
+  top: -102px;
+  right: -93px;
+  width: 200px;
+  background-color: rgba(46, 46, 46, 0.9);
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  padding: 10px 20px;
+  text-align: left;
+  z-index: 100;
+}
+
+.calculator-container > .calculator-wrapper > form > .controls-container > .controls > .controls-label > div > .controls-label-info::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid rgba(46, 46, 46, 0.9);
+  border-bottom: 10px solid transparent;
+}
+
+.calculator-container > .calculator-wrapper > form > .controls-container > .controls > .controls-label > div > .controls-label-info::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 8px);
+  bottom: -10px;
+  width: 0;
+  height: 0;
+  border-right: 8px solid rgba(46, 46, 46, 0.9);
+  border-bottom: 10px solid transparent;
 }
 
 .calculator-container > .calculator-wrapper > form > .controls-container > .controls > .controls-radius {
