@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="style.css" />
     <title>WordPress Calculator</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap");
@@ -38,7 +38,7 @@
       }
 
       .calculator-container {
-        --bRowBackground: #00bf6f;
+        --bRowBackground: #5cb85c;
         background-color: #f8f8f8;
         padding: 3rem 0;
       }
@@ -188,7 +188,7 @@
         > form
         > .controls-container
         > .controls {
-        width: 45%;
+        width: 100%;
       }
 
       .calculator-container
@@ -661,76 +661,6 @@
           <div class="controls-container">
             <div class="controls">
               <div class="controls-label">
-                <p>Hypothesis</p>
-                <div>
-                  <svg
-                    class="calculator-info"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 416.979 416.979"
-                    style="enable-background: new 0 0 416.979 416.979"
-                    xml:space="preserve"
-                  >
-                    <g>
-                      <path
-                        d="M356.004,61.156c-81.37-81.47-213.377-81.551-294.848-0.182c-81.47,81.371-81.552,213.379-0.181,294.85
-		c81.369,81.47,213.378,81.551,294.849,0.181C437.293,274.636,437.375,142.626,356.004,61.156z M237.6,340.786
-		c0,3.217-2.607,5.822-5.822,5.822h-46.576c-3.215,0-5.822-2.605-5.822-5.822V167.885c0-3.217,2.607-5.822,5.822-5.822h46.576
-		c3.215,0,5.822,2.604,5.822,5.822V340.786z M208.49,137.901c-18.618,0-33.766-15.146-33.766-33.765
-		c0-18.617,15.147-33.766,33.766-33.766c18.619,0,33.766,15.148,33.766,33.766C242.256,122.755,227.107,137.901,208.49,137.901z"
-                      />
-                    </g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                  </svg>
-                  <span class="controls-label-info">
-                    A two-sided test accounts for the possibility that your
-                    variant could have a negative impact on your result.
-                  </span>
-                </div>
-              </div>
-              <div class="controls-radius">
-                <label for="oneSided"
-                  >One-sided
-                  <input
-                    type="radio"
-                    name="hypothesis"
-                    id="oneSided"
-                    value="onesided"
-                    checked
-                  />
-                  <span class="custom-radio"></span>
-                </label>
-                <label for="twoSided"
-                  >Two-sided
-                  <input
-                    type="radio"
-                    name="hypothesis"
-                    id="twoSided"
-                    value="twosided"
-                  />
-                  <span class="custom-radio"></span>
-                </label>
-              </div>
-            </div>
-            <div class="controls">
-              <div class="controls-label">
                 <p>Confidence</p>
                 <div>
                   <svg
@@ -866,7 +796,7 @@
         ".calculator-container"
       );
 
-      const significant = (pcrB, pcrA, conf, pVal, hyp, tspVal) => {
+      const significant = (pcrB, pcrA, conf, pVal) => {
         let finalText;
         let significantHigherText = `
         Variant B’s conversion rate (${parseFloat(pcrB).toFixed(
@@ -915,74 +845,32 @@
         )})%, but you cannot say, with ${conf}% confidence, that variant B will perform worse than variant A.
         `;
 
-        if (hyp == "onesided") {
-          if (
-            (conf == 90 && pVal < 0.1) ||
-            (conf == 95 && pVal < 0.05) ||
-            (conf == 99 && pVal < 0.01)
-          ) {
-            if (pcrB > pcrA) {
-              finalText = significantHigherText;
-            } else {
-              finalText = significantLowerText;
-            }
-            resultTitle.innerHTML = "Significant result!";
-            resultBody.innerHTML = finalText;
-
-            calculatorContainer.style.setProperty(
-              "--bRowBackground",
-              "#00bf6f"
-            );
+        if (
+          (conf == 90 && pVal < 0.1) ||
+          (conf == 95 && pVal < 0.05) ||
+          (conf == 99 && pVal < 0.01)
+        ) {
+          if (pcrB > pcrA) {
+            finalText = significantHigherText;
           } else {
-            if (pcrB == pcrA) {
-              finalText = notSignificantEqualText;
-            } else if (pcrB > pcrA) {
-              finalText = notSignificantHigherText;
-            } else {
-              finalText = notSignificantLowerText;
-            }
-            resultTitle.innerHTML = "Result not significant!";
-            resultBody.innerHTML = finalText;
-
-            calculatorContainer.style.setProperty(
-              "--bRowBackground",
-              "#ffc7af"
-            );
+            finalText = significantLowerText;
           }
-        } else if (hyp == "twosided") {
-          if (
-            (conf == 90 && (pVal < 0.1 || pVal > 0.9)) ||
-            (conf == 95 && (pVal < 0.05 || pVal > 0.95)) ||
-            (conf == 99 && (pVal < 0.01 || pVal > 0.99))
-          ) {
-            if (pcrB > pcrA) {
-              finalText = significantHigherText;
-            } else {
-              finalText = significantLowerText;
-            }
-            resultTitle.innerHTML = "Significant result!";
-            resultBody.innerHTML = finalText;
+          resultTitle.innerHTML = "Significant result!";
+          resultBody.innerHTML = finalText;
 
-            calculatorContainer.style.setProperty(
-              "--bRowBackground",
-              "#00bf6f"
-            );
+          calculatorContainer.style.setProperty("--bRowBackground", "#5cb85c");
+        } else {
+          if (pcrB == pcrA) {
+            finalText = notSignificantEqualText;
+          } else if (pcrB > pcrA) {
+            finalText = notSignificantHigherText;
           } else {
-            if (pcrB == pcrA) {
-              finalText = notSignificantEqualText;
-            } else if (pcrB > pcrA) {
-              finalText = notSignificantHigherText;
-            } else {
-              finalText = notSignificantLowerText;
-            }
-            resultTitle.innerHTML = "Result not significant!";
-            resultBody.innerHTML = finalText;
-
-            calculatorContainer.style.setProperty(
-              "--bRowBackground",
-              "#ffc7af"
-            );
+            finalText = notSignificantLowerText;
           }
+          resultTitle.innerHTML = "Result not significant!";
+          resultBody.innerHTML = finalText;
+
+          calculatorContainer.style.setProperty("--bRowBackground", "#ffc7af");
         }
       };
 
@@ -1002,25 +890,7 @@
         return normalcdf(0, 1, z);
       };
 
-      const twoSidedPValue = (cB, vB, cA, vA) => {
-        return (
-          2 *
-          (1 -
-            normalcdf(
-              0,
-              1,
-              Math.abs(
-                (cB / vB - cA / vA) /
-                  Math.sqrt(
-                    (cB / vB ** 2) * (1 - cB / vB) +
-                      (cA / vA ** 2) * (1 - cA / vA)
-                  )
-              )
-            ))
-        );
-      };
-
-      const proccessing = (vA, cA, vB, cB, hyp, conf) => {
+      const proccessing = (vA, cA, vB, cB, conf) => {
         let convRateA = conversionRate(cA, vA);
         let convRateB = conversionRate(cB, vB);
 
@@ -1030,7 +900,6 @@
         let zVal = zScore(convRateA, convRateB, stdErrorA, stdErrorB);
 
         let pVal = pValue(zVal);
-        let twoSidedPVal = twoSidedPValue(cB, vB, cA, vA);
 
         let pValText = document.getElementById("pValue");
         let rateAText = document.getElementById("rateA");
@@ -1046,7 +915,7 @@
         rateAText.innerHTML = `${parseFloat(printedRateA).toFixed(2)}%`;
         rateBText.innerHTML = `${parseFloat(printedRateB).toFixed(2)}%`;
 
-        significant(printedRateB, printedRateA, conf, pVal, hyp, twoSidedPVal);
+        significant(printedRateB, printedRateA, conf, pVal);
       };
 
       form.addEventListener("submit", function (e) {
@@ -1061,18 +930,9 @@
         let confidenceInputs = document.getElementsByName("confidence");
         let confidence;
 
-        let hypothesisInputs = document.getElementsByName("hypothesis");
-        let hypothesis;
-
         for (let i = 0; i < confidenceInputs.length; i++) {
           if (confidenceInputs[i].checked) {
             confidence = confidenceInputs[i].value;
-          }
-        }
-
-        for (let i = 0; i < hypothesisInputs.length; i++) {
-          if (hypothesisInputs[i].checked) {
-            hypothesis = hypothesisInputs[i].value;
           }
         }
 
@@ -1081,7 +941,6 @@
           conversionsA,
           visitorsB,
           conversionsB,
-          hypothesis,
           confidence
         );
 

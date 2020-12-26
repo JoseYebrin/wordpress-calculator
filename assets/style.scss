@@ -27,7 +27,7 @@ body {
 }
 
 .calculator-container {
-  --bRowBackground: #00bf6f;
+  --bRowBackground: #5cb85c;
 
   background-color: $lightGray;
   padding: 3rem 0;
@@ -139,7 +139,7 @@ body {
         padding: 20px 0;
 
         &>.controls {
-          width: 45%;
+          width: 100%;
 
           &>.controls-label {
             display: flex;
